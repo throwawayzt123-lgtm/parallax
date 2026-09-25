@@ -27,11 +27,13 @@ const jost = Jost({
 export const metadata: Metadata = {
   title: `${BRAND.name} — ${BRAND.tagline}`,
   description:
-    "A speciality coffee atelier in Fitzrovia. Direct-trade origins, slow roasting and a room built for unhurried mornings.",
+    "A speciality coffee house and roastery in New York, USA. Direct-trade origins, slow roasting and a room built for unhurried mornings.",
   keywords: [
+    "PARALLAX",
     "speciality coffee",
-    "coffee atelier",
-    "London cafe",
+    "coffee house",
+    "New York cafe",
+    "SoHo coffee",
     "single origin",
     "cold brew",
   ],
@@ -43,8 +45,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: COLORS.ink,
-  colorScheme: "dark",
+  themeColor: "#FFF9F2",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -53,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${cormorant.variable} ${jost.variable} antialiased`}
     >
-      <body className="bg-ink font-sans text-cream">
+      <body className="bg-[#FFF9F2] font-sans text-[#1C130D]">
         <Header />
         <MotionProvider>
           {children}

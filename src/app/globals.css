@@ -6,23 +6,36 @@
    Tailwind v4 turns each `--color-*` into utilities: bg-primary, text-cream…
    ========================================================================== */
 @theme {
-  /* ── Brand ─────────────────────────────────────────────── */
-  --color-primary: #e4c79f; /* the house gold — user supplied  */
-  --color-primary-soft: #f3e6d1; /* lifted gold, for hover / highlights   */
-  --color-primary-deep: #c3a271; /* pressed gold, for gradients + borders */
-  --color-primary-dim: #7d6749; /* gold at rest on dark, for hairlines   */
+  /* ── Brand & Accent ──────────────────────────────────────── */
+  --color-primary: #BA8F60; /* House accent: warm artisanal caramel / amber gold */
+  --color-primary-soft: #D4B285; /* soft warm golden tint */
+  --color-primary-deep: #A47748; /* deep warm roast bronze for hover */
+  --color-primary-dim: #8C5F32; /* high-contrast dark caramel for text */
+  --color-amber: #BA8F60;
 
-  /* ── Surfaces (dark, warm, roasted) ────────────────────── */
-  --color-ink: #080503; /* page floor        */
-  --color-espresso: #120b07; /* section base      */
-  --color-mocha: #1d130c; /* raised panel      */
-  --color-cocoa: #2e1d12; /* card surface      */
-  --color-bark: #462c1a; /* border / divider  */
+  /* ── Light Warm Surfaces ─────────────────────────────────── */
+  --color-page: #FFF9F2; /* warm porcelain cream floor */
+  --color-cream-warm: #FFF9F2;
+  --color-surface: #FFFFFF; /* white card surface */
+  --color-raised: #F8F0E5; /* raised section base */
+  --color-border-warm: #E8DCCF; /* warm border */
+
+  /* ── Cinematic Dark Retained for Untouched Hero ──────────── */
+  --color-ink: #080503; /* Hero stage floor */
+  --color-espresso: #120b07; /* dark surface */
+  --color-mocha: #1d130c;
+  --color-cocoa: #2e1d12;
+  --color-bark: #462c1a;
 
   /* ── Content ───────────────────────────────────────────── */
-  --color-cream: #f8f1e7; /* primary text      */
-  --color-sand: #cdb99d; /* secondary text    */
-  --color-muted: #8a7255; /* tertiary / meta   */
+  --color-cream: #f8f1e7; /* Hero light text */
+  --color-sand: #cdb99d; /* Hero secondary text */
+  --color-muted: #8a7255; /* Hero meta text */
+
+  /* ── Typography (Light Mode) ────────────────────────────── */
+  --color-dark: #1C130D; /* primary text on cream */
+  --color-body-text: #1C130D;
+  --color-body-muted: #5C493B;
 
   /* ── Type ──────────────────────────────────────────────── */
   --font-display: var(--font-cormorant), "Times New Roman", Georgia, serif;
@@ -31,10 +44,9 @@
   /* ── Motion ────────────────────────────────────────────── */
   --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* ── Depth (the "3D" of the design) ────────────────────── */
-  --shadow-lift: 0 30px 60px -20px rgb(0 0 0 / 0.85);
-  --shadow-float: 0 50px 90px -30px rgb(0 0 0 / 0.9);
-  --shadow-gold: 0 0 60px -10px rgb(228 199 159 / 0.35);
+  /* ── Depth ─────────────────────────────────────────────── */
+  --shadow-lift: 0 20px 45px -15px rgba(50, 30, 15, 0.08);
+  --shadow-float: 0 30px 60px -20px rgba(50, 30, 15, 0.12);
 }
 
 @layer base {
@@ -44,8 +56,8 @@
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-cream);
+    background-color: #FFF9F2;
+    color: #1C130D;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -53,19 +65,19 @@
   }
 
   ::selection {
-    background-color: var(--color-primary);
-    color: var(--color-ink);
+    background-color: #BA8F60;
+    color: #FFFFFF;
   }
 
-  /* A slim, gold scrollbar keeps the chrome on-brand. */
+  /* Slim scrollbar with warm amber styling */
   ::-webkit-scrollbar {
-    width: 9px;
+    width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-espresso);
+    background: #F4EBE0;
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(var(--color-primary-deep), var(--color-primary-dim));
+    background: #BA8F60;
     border-radius: 9999px;
   }
 
@@ -95,43 +107,42 @@
   }
 }
 
-/* Metal-leaf gradient text used on numerals and accent words. */
+/* Gilded text / accent italic */
 @utility text-gilded {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-primary-deep) 0%,
-    var(--color-primary-soft) 30%,
-    var(--color-primary) 55%,
-    var(--color-primary-deep) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #966A3B;
 }
 
-/* Hairline gold rule with a soft falloff at both ends. */
+/* Hairline rule */
 @utility rule-gold {
   height: 1px;
-  background-image: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-primary-dim) 20%,
-    var(--color-primary) 50%,
-    var(--color-primary-dim) 80%,
-    transparent
-  );
+  background-color: rgb(186 143 96 / 0.28);
 }
 
-/* Frosted panel — the base of every card in the design. */
+/* Modern white/ivory card */
 @utility pane {
-  background-image: linear-gradient(
-    160deg,
-    rgb(70 44 26 / 0.55) 0%,
-    rgb(29 19 12 / 0.85) 45%,
-    rgb(8 5 3 / 0.9) 100%
-  );
-  border: 1px solid rgb(228 199 159 / 0.14);
-  backdrop-filter: blur(14px);
+  background-color: #FFFFFF;
+  border: 1px solid #E8DCCF;
+  box-shadow: 0 14px 35px -10px rgba(50, 35, 20, 0.06);
+}
+
+/* Modern cozy card */
+@utility card-cozy {
+  background-color: #FFFFFF;
+  border: 1px solid #E8DCCF;
+  box-shadow: 0 10px 25px -5px rgba(50, 35, 20, 0.05);
+}
+
+/* Legacy alias */
+@utility pane-royal {
+  background-color: #FFFFFF;
+  border: 1px solid #E8DCCF;
+  box-shadow: 0 14px 35px -10px rgba(50, 35, 20, 0.06);
+}
+
+@utility royal-bezel {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid #E8DCCF;
 }
 
 /* Fine film grain — the single cheapest way to make flat gradients read

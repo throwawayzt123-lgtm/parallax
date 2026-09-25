@@ -84,7 +84,7 @@ export default function TiltCard({
         <div
           ref={sheen}
           aria-hidden
-          className="pointer-events-none absolute -inset-1/4 z-20 opacity-0 mix-blend-soft-light transition-opacity duration-500 [background:radial-gradient(circle_at_center,rgb(255_255_255/0.5),transparent_58%)] group-hover:opacity-100"
+          className="pointer-events-none absolute -inset-1/4 z-20 opacity-0 mix-blend-soft-light transition-opacity duration-500 [background:radial-gradient(circle_at_center,rgba(255,255,255,0.35)_0%,transparent_60%)] group-hover:opacity-100"
         />
       </div>
     </div>

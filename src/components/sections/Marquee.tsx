@@ -53,24 +53,24 @@ export default function Marquee() {
   return (
     <div
       ref={root}
-      className="relative overflow-hidden border-y border-bark/60 bg-mocha py-7 max-sm:py-5"
+      className="relative overflow-hidden border-y border-[#E8DCCF] bg-[#F7EFE4] py-6 max-sm:py-4"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-40 bg-gradient-to-r from-mocha to-transparent max-sm:w-16"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-[#F7EFE4] to-transparent max-sm:w-12"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-40 bg-gradient-to-l from-mocha to-transparent max-sm:w-16"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-[#F7EFE4] to-transparent max-sm:w-12"
       />
 
       <div ref={track} className="flex w-max items-center whitespace-nowrap">
         {row.map((item, i) => (
           <span key={i} className="flex items-center">
-            <span className="px-9 font-display text-[1.55rem] italic text-primary/90 max-sm:px-5 max-sm:text-lg">
+            <span className="px-8 font-display text-[1.4rem] italic tracking-wide text-[#3B2A1E] max-sm:px-5 max-sm:text-base">
               {item}
             </span>
-            <span className="h-1.5 w-1.5 rotate-45 bg-primary/45" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#BA8F60]" />
           </span>
         ))}
       </div>

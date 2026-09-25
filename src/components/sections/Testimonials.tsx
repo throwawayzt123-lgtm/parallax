@@ -45,13 +45,8 @@ export default function Testimonials() {
   return (
     <section
       ref={root}
-      className="grain relative overflow-hidden bg-ink py-36 max-lg:py-28 max-sm:py-20"
+      className="relative overflow-hidden bg-[#FFF9F2] py-36 max-lg:py-28 max-sm:py-20"
     >
-      <div
-        aria-hidden
-        className="absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.06] blur-[140px]"
-      />
-
       <div className="relative mx-auto w-full max-w-[1100px] px-12 text-center max-lg:px-8 max-sm:px-5">
         <Eyebrow align="center">Kind Words</Eyebrow>
 
@@ -59,7 +54,7 @@ export default function Testimonials() {
         <p
           aria-hidden
           data-reveal="fade"
-          className="mt-10 select-none font-display text-[7rem] leading-[0.4] text-primary/25 max-sm:text-[5rem]"
+          className="mt-10 select-none font-display text-[7rem] leading-[0.4] text-[#BA8F60]/30 max-sm:text-[5rem]"
         >
           &ldquo;
         </p>
@@ -70,16 +65,16 @@ export default function Testimonials() {
           onMouseLeave={() => setPaused(false)}
           className="mt-10 max-sm:mt-8"
         >
-          <blockquote className="mx-auto max-w-[26ch] font-display text-[clamp(1.6rem,3.1vw,2.9rem)] font-medium italic leading-[1.28] text-cream">
+          <blockquote className="mx-auto max-w-[26ch] font-display text-[clamp(1.6rem,3.1vw,2.9rem)] font-medium italic leading-[1.28] text-[#1C130D]">
             {t.quote}
           </blockquote>
 
           <div className="mt-10 flex flex-col items-center gap-1 max-sm:mt-8">
             <span className="rule-gold mb-6 w-16" />
-            <p className="font-sans text-[0.8rem] uppercase tracking-[0.22em] text-primary">
+            <p className="font-sans text-[0.8rem] font-medium uppercase tracking-[0.22em] text-[#1C130D]">
               {t.name}
             </p>
-            <p className="font-sans text-[0.68rem] uppercase tracking-[0.2em] text-muted">
+            <p className="font-sans text-[0.68rem] font-medium uppercase tracking-[0.2em] text-[#8C5F32]">
               {t.role}
             </p>
           </div>
@@ -92,14 +87,10 @@ export default function Testimonials() {
               key={item.name}
               aria-label={`Show review ${i + 1}`}
               onClick={() => setIndex(i)}
-              /* Fixed width scaled on the x-axis rather than an animated
-                 `width`: width cannot be composited, so the browser relayouts
-                 every frame and Lighthouse flags it. transform + colour are
-                 both compositor-friendly. */
               className={`h-1 w-12 origin-left rounded-full transition-[transform,background-color] duration-500 ease-[var(--ease-silk)] ${
                 i === index
-                  ? "scale-x-100 bg-primary"
-                  : "scale-x-[0.42] bg-bark hover:bg-primary/50"
+                  ? "scale-x-100 bg-[#BA8F60]"
+                  : "scale-x-[0.42] bg-[#E8DCCF] hover:bg-[#BA8F60]/50"
               }`}
             />
           ))}

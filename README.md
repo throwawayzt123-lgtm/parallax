@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PARALLAX — Speciality Coffee House & Roastery
+
+> A slow ritual, poured with intent. Based in SoHo, New York, USA.
+
+An immersive, cinematic scroll-driven web experience built with Next.js 16 (Turbopack), Tailwind CSS, GSAP (ScrollTrigger & ScrollSmoother), and high-performance HTML5 Canvas frame scrubbing.
+
+---
+
+## Features
+
+- **Kinetic Orbit Hero**: 240-frame 60fps canvas-driven scroll animation with responsive mobile viewport adaptation.
+- **Cold Pour Ritual**: Interactive 3-phase cold brew table sequence exploring nitrogen cascade, ice purity, and glass profiles.
+- **Curated Menu & Tasting Radar**: Specialty espresso and pour-over items with flavor profiles, roasting metrics, and tasting modal.
+- **Mobile First Luxury UI**: Custom full-screen mobile menu with zero-collision header clearance and roastery concierge card.
+- **High-Performance Architecture**: Lazy motion loading, image sequence optimization, and zero-layout-shift design.
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Styling**: Tailwind CSS
+- **Motion & Scrubbing**: GSAP 3, ScrollTrigger, ScrollSmoother, SplitText
+- **Typography**: Cormorant Garamond & Jost
+
+---
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Production Build
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run start
+```

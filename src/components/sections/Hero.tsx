@@ -202,7 +202,7 @@ export default function Hero() {
           >
             <span className="h-px w-14 bg-gradient-to-r from-transparent to-primary max-sm:w-8" />
             <span className="font-sans text-[0.7rem] uppercase tracking-[0.46em] text-primary max-sm:text-[0.55rem] max-sm:tracking-[0.3em]">
-              {BRAND.tagline} · Fitzrovia
+              {BRAND.tagline} · New York, USA
             </span>
             <span className="h-px w-14 bg-gradient-to-l from-transparent to-primary max-sm:w-8" />
           </div>
@@ -255,7 +255,7 @@ export default function Hero() {
               4.9 ★ · 1,240 reviews
             </p>
             <p className="font-sans text-[0.62rem] uppercase tracking-[0.22em] text-muted max-sm:text-[0.52rem] max-sm:tracking-[0.14em]">
-              Loved across London
+              Loved across New York
             </p>
           </div>
         </div>

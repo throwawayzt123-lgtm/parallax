@@ -17,15 +17,15 @@ export default function Eyebrow({
   return (
     <div
       {...(reveal ? { "data-reveal": "fade" } : {})}
-      className={`flex items-center gap-4 ${
+      className={`flex items-center gap-3.5 ${
         align === "center" ? "justify-center" : ""
       } ${className}`}
     >
-      <span className="h-px w-10 bg-gradient-to-r from-transparent to-primary-deep" />
-      <span className="font-sans text-[0.68rem] uppercase leading-none tracking-[0.42em] text-primary max-sm:text-[0.6rem] max-sm:tracking-[0.3em]">
+      <span className="h-px w-7 bg-[#BA8F60]/40" />
+      <span className="font-sans text-[0.66rem] font-semibold uppercase leading-none tracking-[0.36em] text-[#8C5F32] max-sm:text-[0.58rem] max-sm:tracking-[0.24em]">
         {children}
       </span>
-      <span className="h-px w-10 bg-gradient-to-l from-transparent to-primary-deep" />
+      <span className="h-px w-7 bg-[#BA8F60]/40" />
     </div>
   );
 }

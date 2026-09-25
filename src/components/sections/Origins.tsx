@@ -46,58 +46,54 @@ export default function Origins() {
   return (
     <section
       ref={root}
-      className="grain relative flex min-h-[82vh] items-center overflow-hidden bg-ink py-32 max-lg:py-24 max-sm:min-h-0 max-sm:py-20"
+      className="relative flex min-h-[82vh] items-center overflow-hidden bg-[#FFF9F2] py-32 max-lg:py-24 max-sm:min-h-0 max-sm:py-20"
     >
-      {/* Parallax ground */}
-      <div aria-hidden className="absolute inset-0 -top-[12%] h-[124%]" data-speed="0.8">
+      {/* Parallax ground with warm cream veil */}
+      <div aria-hidden className="absolute inset-0 -top-[12%] h-[124%] opacity-25" data-speed="0.8">
         <Image
           src="/images/story/beans-slate.jpg"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover grayscale"
         />
       </div>
-      <div aria-hidden className="absolute inset-0 bg-ink/82" />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,transparent_0%,rgb(8_5_3/0.8)_100%)]"
-      />
+      <div aria-hidden className="absolute inset-0 bg-[#FFF9F2]/85" />
 
       <div className="relative mx-auto w-full max-w-[1440px] px-12 max-lg:px-8 max-sm:px-5">
         <Eyebrow align="center">Direct Trade · Four Countries</Eyebrow>
 
         <p
           ref={quote}
-          className="mx-auto mt-12 max-w-[22ch] text-center font-display text-[clamp(2rem,4.6vw,4.4rem)] font-medium italic leading-[1.12] text-cream max-sm:mt-8"
+          className="mx-auto mt-12 max-w-[22ch] text-center font-display text-[clamp(2rem,4.6vw,4.4rem)] font-medium italic leading-[1.12] text-[#1C130D] max-sm:mt-8"
         >
           We know every farm by name, and every farmer knows ours.
         </p>
 
         <div
           data-reveal-group
-          className="mt-20 grid grid-cols-4 gap-px overflow-hidden rounded-2xl border border-primary/15 bg-primary/15 max-lg:grid-cols-2 max-sm:mt-14 max-sm:grid-cols-1"
+          className="mt-16 grid grid-cols-4 gap-5 max-lg:grid-cols-2 max-sm:mt-12 max-sm:grid-cols-1"
         >
           {ORIGINS.map((o) => (
             <div
               key={o.country}
               data-reveal-item
-              className="group bg-espresso/90 p-8 backdrop-blur-sm transition-colors duration-500 hover:bg-mocha max-sm:p-6"
+              className="group rounded-2xl border border-[#E8DCCF] bg-white/95 backdrop-blur-sm p-7 shadow-[0_12px_30px_-10px_rgba(28,19,13,0.06)] transition-all duration-300 hover:border-[#BA8F60] hover:-translate-y-1 max-sm:p-6"
             >
-              <p className="font-display text-3xl font-medium text-cream transition-colors duration-500 group-hover:text-primary max-sm:text-2xl">
+              <p className="font-display text-3xl font-medium text-[#1C130D] transition-colors duration-300 group-hover:text-[#8C5F32] max-sm:text-2xl">
                 {o.country}
               </p>
-              <p className="mt-2 font-sans text-[0.68rem] uppercase tracking-[0.2em] text-primary/80">
+              <p className="mt-1.5 font-sans text-[0.68rem] uppercase tracking-[0.2em] font-semibold text-[#8C5F32]">
                 {o.region}
               </p>
-              <div className="mt-6 space-y-2 border-t border-bark/70 pt-5">
-                <p className="flex justify-between text-[0.78rem] text-muted">
+              <div className="mt-6 space-y-2.5 border-t border-[#E8DCCF] pt-5">
+                <p className="flex justify-between text-[0.78rem] text-[#7A695C]">
                   <span>Altitude</span>
-                  <span className="text-sand">{o.altitude}</span>
+                  <span className="text-[#1C130D] font-mono text-[0.75rem] font-medium">{o.altitude}</span>
                 </p>
-                <p className="flex justify-between text-[0.78rem] text-muted">
+                <p className="flex justify-between text-[0.78rem] text-[#7A695C]">
                   <span>Process</span>
-                  <span className="text-sand">{o.process}</span>
+                  <span className="text-[#1C130D] font-medium">{o.process}</span>
                 </p>
               </div>
             </div>

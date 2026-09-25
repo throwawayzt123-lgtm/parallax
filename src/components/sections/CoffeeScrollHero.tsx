@@ -16,7 +16,14 @@ import {
 } from "@/lib/gsap";
 import Eyebrow from "@/components/ui/Eyebrow";
 import GoldButton from "@/components/ui/GoldButton";
-import { BRAND, COFFEE_SEQUENCE, HERO_BEATS, ORIGINS } from "@/lib/site";
+import {
+  BRAND,
+  COFFEE_SEQUENCE,
+  SEQUENCE_VIDEO1,
+  SEQUENCE_VIDEO2,
+  HERO_BEATS,
+  ORIGINS,
+} from "@/lib/site";
 
 const TOTAL = COFFEE_SEQUENCE.last - COFFEE_SEQUENCE.first + 1;
 
@@ -118,6 +125,12 @@ export default function CoffeeScrollHero() {
      can be measured. Only then does the remaining sequence start downloading,
      so ~8 MB of WebP never competes with CSS, JS and the LCP paint. */
   useEffect(() => {
+    frames.current = [];
+    ready.current = [];
+    painted.current = -1;
+    setLoaded(false);
+    setFirstFrameReady(false);
+
     /* Tracked locally so teardown never has to read a ref that may have moved
        on by the time cleanup runs. */
     const opened: HTMLImageElement[] = [];
@@ -330,22 +343,12 @@ export default function CoffeeScrollHero() {
             0,
           );
 
-          /* Portrait shows only ~26% of a 16:9 frame's width, and the subject
-             drifts left as the camera drops — from roughly 73% of the frame
-             early on to 58% at the climax. Panning the crop with it keeps the
-             cup and the pour centred instead of letting them slide out. */
+          /* Portrait shows only ~26% of a 16:9 frame's width. With the new
+             Frames2 asset, the subject (can and splash) is centered right down
+             the middle (50% horizontal) across all 240 frames. Keeping
+             objectPosition centered ensures the animation stays perfectly
+             centralized on mobile throughout the scrub. */
           if (phone) {
-            tl.fromTo(
-              canvas.current,
-              { objectPosition: "73% 50%" },
-              {
-                objectPosition: "58% 50%",
-                duration: 0.3,
-                ease: "power1.inOut",
-              },
-              0.2,
-            );
-
             /* Hand the readable band from the top of the frame to the bottom,
                following the subject rather than covering it. */
             tl.to(
@@ -422,24 +425,28 @@ export default function CoffeeScrollHero() {
 
   const beatCopy = (beat: (typeof HERO_BEATS)[number], stacked: boolean) => (
     <>
-      <Eyebrow reveal={false}>{beat.eyebrow}</Eyebrow>
+      <Eyebrow reveal={false} className="max-sm:text-[0.55rem] max-sm:justify-center">
+        {beat.eyebrow}
+      </Eyebrow>
       <h2
         className={`mt-6 font-display text-[clamp(2.2rem,4.4vw,4.4rem)] font-medium leading-[1.04] tracking-[-0.015em] text-cream ${
           stacked ? "" : "drop-shadow-[0_4px_26px_rgb(8_5_3/0.95)]"
-        }`}
+        } max-sm:text-[1.65rem] max-sm:leading-[1.1] max-sm:mt-1.5`}
       >
         {beat.title} <em className="text-gilded italic">{beat.titleAccent}</em>
         {beat.titleTail}
       </h2>
       {beat.body && (
-        <p className="mt-6 max-w-[42ch] leading-relaxed text-sand max-sm:mt-4 max-sm:text-[0.94rem]">
+        <p className="mt-6 max-w-[42ch] leading-relaxed text-sand max-sm:mt-1.5 max-sm:text-[0.8rem] max-sm:line-clamp-2 max-sm:mx-auto">
           {beat.body}
         </p>
       )}
       {beat.id === "yours" && (
-        <div className="mt-9 flex items-center gap-4 max-sm:mt-7 max-sm:gap-2.5">
-          <GoldButton href="#menu">Explore Menu</GoldButton>
-          <GoldButton href="#visit" variant="ghost">
+        <div className="mt-9 flex items-center gap-4 max-sm:mt-3 max-sm:gap-2 max-sm:justify-center">
+          <GoldButton href="#menu" className="max-sm:text-[0.68rem] max-sm:py-1.5 max-sm:px-3.5">
+            Explore Menu
+          </GoldButton>
+          <GoldButton href="#visit" variant="ghost" className="max-sm:hidden">
             Get Delivery
           </GoldButton>
         </div>
@@ -476,46 +483,47 @@ export default function CoffeeScrollHero() {
             height={COFFEE_SEQUENCE.height}
             aria-label="A cup of coffee lifting from a café table and pouring toward the viewer"
             role="img"
-            /* object-fit does the cover maths for us, and object-position keeps
-               the cup — which sits centre-right — inside the crop. On phones
-               the timeline pans this value as the subject drifts left. */
             /* Starts transparent: on a slow link there is nothing to show for
                a while, and an empty canvas over the section gradient is less
-               jarring than a black rectangle. Faded in by the effect below. */
-            style={{ opacity: 0 }}
-            className="h-full w-full object-cover object-[58%_50%] max-sm:object-[73%_50%]"
+               jarring than a black rectangle. Faded in by the effect below.
+               objectPosition is centered (50% 50%) so the subject is perfectly
+               centralized horizontally on mobile and widescreen. */
+            style={{ opacity: 0, objectPosition: "50% 50%" }}
+            className="h-full w-full object-cover object-center max-sm:object-center"
           />
         </div>
 
-        {/* Readability scrims, using the same ink gradient device as the
-            home hero. Kept light so the café lighting survives. */}
+        {/* Readability scrims.
+            Tuned for the Frames3 sequence, which is LIGHT — a cream backdrop
+            and pale milk splash — where the previous footage was a dark café.
+            The old values (ink/72 fading out by 58%) were calibrated against
+            that dark plate and left the eyebrow and the ghost CTA almost
+            invisible here, so the left wash is both stronger and carried
+            further across. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-ink/92 via-ink/45 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-ink/95 via-ink/55 to-transparent max-sm:h-24 max-sm:from-ink/70 max-sm:via-transparent"
         />
         {/* Desktop reads left-to-right into the negative space. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-ink/72 via-ink/28 to-transparent max-sm:hidden"
+          className="pointer-events-none absolute inset-y-0 left-0 w-[72%] bg-gradient-to-r from-ink/92 via-ink/60 to-transparent max-sm:hidden"
         />
 
-        {/* Portrait has no side room, and the subject moves: it sits low while
-            the cup is on the table, then high once the camera drops. So the
-            scrims trade places on the timeline rather than fighting for the
-            same band. */}
+        {/* Portrait reads vertically at bottom. */}
         <div
           data-scrim-intro
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 hidden h-[56%] bg-gradient-to-b from-ink via-ink/78 to-transparent max-sm:block"
+          className="pointer-events-none absolute inset-x-0 top-0 hidden h-20 bg-gradient-to-b from-ink/50 to-transparent opacity-0 max-sm:block"
         />
         <div
           data-scrim-beats
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[62%] bg-gradient-to-t from-ink via-ink/86 to-transparent opacity-0 max-sm:block"
+          className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[44%] bg-gradient-to-t from-ink via-ink/80 to-transparent max-sm:block"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink via-ink/45 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink via-ink/60 to-transparent"
         />
 
         {/* Closing veil — rises only over the last 12% of the scroll. */}
@@ -532,16 +540,16 @@ export default function CoffeeScrollHero() {
             the space *below* it rather than in the raw viewport. Without the
             top inset, a short landscape window (e.g. 1913x833) pushes the
             eyebrow up under the logo and nav. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[104px] z-10 flex items-center max-sm:top-0 max-sm:items-start max-sm:pt-24">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[104px] z-10 flex items-center max-sm:top-0 max-sm:items-end max-sm:pb-12">
           <div className="mx-auto w-full max-w-[1440px] px-12 max-lg:px-8 max-sm:px-5">
             {/* Opening lockup — the home hero's own content and hierarchy. */}
             <div
               data-beat="intro"
-              className="pointer-events-auto max-w-[54ch] max-sm:max-w-none max-sm:text-center"
+              className="pointer-events-auto max-w-[54ch] max-sm:max-w-[340px] max-sm:mx-auto max-sm:text-center"
             >
               <div data-intro-eyebrow className="max-sm:justify-center">
-                <Eyebrow reveal={false} className="max-sm:justify-center">
-                  {BRAND.tagline} · Fitzrovia
+                <Eyebrow reveal={false} className="max-sm:justify-center max-sm:text-[0.58rem]">
+                  {BRAND.tagline} · New York, USA
                 </Eyebrow>
               </div>
 
@@ -550,7 +558,7 @@ export default function CoffeeScrollHero() {
                 /* Sized against height as well as width: on a wide-but-short
                    window (1913x833) a pure vw scale produced a four-line
                    headline that crowded the header and the origin line. */
-                className="mt-8 max-w-[16ch] font-display text-[clamp(2.6rem,min(7vw,10.5vh),7.5rem)] font-medium leading-[0.96] tracking-[-0.02em] text-cream drop-shadow-[0_4px_26px_rgb(8_5_3/0.95)] max-sm:mx-auto max-sm:mt-5 max-sm:max-w-none"
+                className="mt-8 max-w-[16ch] font-display text-[clamp(2.6rem,min(7vw,10.5vh),7.5rem)] font-medium leading-[0.96] tracking-[-0.02em] text-cream drop-shadow-[0_4px_26px_rgb(8_5_3/0.95)] max-sm:mx-auto max-sm:mt-2 max-sm:text-[1.65rem] max-sm:leading-[1.12] max-sm:max-w-[13ch]"
               >
                 A slow ritual, <em className="text-gilded italic">poured</em> with
                 intent.
@@ -558,17 +566,19 @@ export default function CoffeeScrollHero() {
 
               <p
                 data-intro-lede
-                className="mt-8 max-w-[46ch] leading-relaxed text-sand max-sm:mx-auto max-sm:mt-5 max-sm:text-[0.93rem]"
+                className="mt-8 max-w-[46ch] leading-relaxed text-sand max-sm:hidden"
               >
                 A speciality coffee house hand-roasting single-origin lots in
                 small batches — pulled to the second, poured with patience.
               </p>
 
-              <div className="mt-10 flex items-center gap-4 max-sm:mt-7 max-sm:justify-center max-sm:gap-2.5">
+              <div className="mt-10 flex items-center gap-4 max-sm:mt-3 max-sm:justify-center max-sm:gap-2">
                 <span data-intro-cta>
-                  <GoldButton href="#menu">Explore Menu</GoldButton>
+                  <GoldButton href="#menu" className="max-sm:text-[0.68rem] max-sm:py-1.5 max-sm:px-3.5">
+                    Explore Menu
+                  </GoldButton>
                 </span>
-                <span data-intro-cta>
+                <span data-intro-cta className="max-sm:hidden">
                   <GoldButton href="#visit" variant="ghost">
                     Get Delivery
                   </GoldButton>
@@ -577,7 +587,7 @@ export default function CoffeeScrollHero() {
 
               <p
                 data-intro-meta
-                className="mt-10 font-sans text-[0.62rem] uppercase tracking-[0.28em] text-sand drop-shadow-[0_2px_12px_rgb(8_5_3/0.95)] max-sm:mt-6 max-sm:text-[0.52rem] max-sm:tracking-[0.18em]"
+                className="mt-10 font-sans text-[0.62rem] uppercase tracking-[0.28em] text-sand drop-shadow-[0_2px_12px_rgb(8_5_3/0.95)] max-sm:hidden"
               >
                 {ORIGINS.slice(0, 3)
                   .map((o) => o.country)
@@ -593,7 +603,7 @@ export default function CoffeeScrollHero() {
                   data-beat={beat.id}
                   /* Phones anchor the copy to the bottom veil, matching where
                      the opening lockup sits. */
-                  className="pointer-events-auto absolute inset-y-0 left-0 flex w-full max-w-[1440px] flex-col justify-center px-12 opacity-0 max-lg:px-8 max-sm:justify-end max-sm:px-5 max-sm:pb-14 max-sm:text-center"
+                  className="pointer-events-auto absolute inset-y-0 left-0 flex w-full max-w-[1440px] flex-col justify-center px-12 opacity-0 max-lg:px-8 max-sm:justify-end max-sm:px-5 max-sm:pb-12 max-sm:text-center"
                 >
                   <div className="max-w-[46ch] max-sm:mx-auto">
                     {beatCopy(beat, false)}
@@ -614,7 +624,7 @@ export default function CoffeeScrollHero() {
         <div
           ref={loader}
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-2 pb-8"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-2 pb-8 max-sm:pb-2.5"
         >
           <div className="h-px w-40 overflow-hidden bg-bark/70 max-sm:w-28">
             <div

@@ -1,18 +1,19 @@
 /** All copy + content for the site, kept out of the components. */
 
 export const BRAND = {
-  name: "Velvet Drip",
-  tagline: "Coffee Atelier",
+  name: "PARALLAX",
+  tagline: "Coffee House & Roastery",
   established: "EST. SPECIALITY · 2016",
-  address: "18 Marlowe Lane, Fitzrovia, London W1T",
+  address: "448 Broome St, SoHo, New York, USA",
   hours: "Mon–Fri 07:00–19:00 · Sat–Sun 08:00–18:00",
-  phone: "+44 20 7946 0812",
-  email: "contact@velvet.coffee",
+  phone: "+1234567890",
+  email: "contact@parallax.coffee",
 } as const;
 
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Story", href: "#story" },
+  { label: "Ritual", href: "#ritual" },
   { label: "Menu", href: "#menu" },
   { label: "Craft", href: "#craft" },
   { label: "Gallery", href: "#gallery" },
@@ -25,10 +26,17 @@ export const TICKER = [
   "Slow Roasted Daily",
   "Q-Grader Baristas",
   "Direct Trade Origins",
-  "Featured in Monocle",
+  "Roasted On Site",
 ] as const;
 
-export type MenuCategory = "Espresso" | "Slow Brew" | "Patisserie";
+export type MenuCategory = "Espresso" | "Slow Brew" | "Pastries";
+
+export type FlavorRadar = {
+  sweetness: number;
+  acidity: number;
+  body: number;
+  aroma: number;
+};
 
 export type MenuItem = {
   id: string;
@@ -38,68 +46,131 @@ export type MenuItem = {
   image: string;
   blurb: string;
   notes: string[];
+  artisanTitle: string;
+  edition: string;
+  roastIntensity: number; // 1 to 5
+  servingTemp: string;
+  originTerroir: string;
+  pairing: string;
+  cuppingScore: string;
+  extractionRatio: string;
+  flavorProfile: FlavorRadar;
 };
 
 export const MENU: MenuItem[] = [
   {
     id: "cortado",
-    name: "Velvet Cortado",
+    name: "Cortado",
+    artisanTitle: "Double Espresso & Steamed Milk (1:1)",
+    edition: "House Speciality",
     category: "Espresso",
     price: "£4.20",
-    image: "/images/menu/cortado.jpg",
+    image: "/images/menu/cortado.png",
     blurb:
-      "A double ristretto cut with silk-textured milk, poured at precisely 62°C for a rounded, unhurried finish.",
+      "Equal parts rich double espresso and velvety steamed milk with a delicate layer of microfoam, served in a traditional 4.5oz glass.",
     notes: ["Cocoa nib", "Hazelnut", "Brown sugar"],
+    roastIntensity: 4,
+    servingTemp: "60°C Steamed Milk",
+    originTerroir: "Guji Hambela, Ethiopia · 2,050m",
+    pairing: "Almond Croissant",
+    cuppingScore: "89.5 Q+",
+    extractionRatio: "1:1 Double Shot & Silky Milk",
+    flavorProfile: { sweetness: 4, acidity: 2, body: 5, aroma: 4 },
   },
   {
     id: "ristretto",
-    name: "Ristretto Nero",
+    name: "Double Espresso",
+    artisanTitle: "Double Ristretto Shot · 18g In, 22g Out",
+    edition: "Single Origin",
     category: "Espresso",
     price: "£3.40",
-    image: "/images/menu/ristretto.jpg",
+    image: "/images/menu/espresso.png",
     blurb:
-      "Eighteen grams in, twenty-two out, twenty-six seconds. Dense, syrupy and unapologetically dark.",
+      "A dense, concentrated double shot extracted from freshly ground Colombian single-origin beans. Syrupy crema with dark chocolate depth.",
     notes: ["Dark chocolate", "Fig", "Cedar"],
+    roastIntensity: 5,
+    servingTemp: "92°C Extraction",
+    originTerroir: "Huila Pitalito, Colombia · 1,740m",
+    pairing: "Salted Caramel Brownie",
+    cuppingScore: "91.0 Q+",
+    extractionRatio: "18g in · 22g out · 26s",
+    flavorProfile: { sweetness: 2, acidity: 3, body: 5, aroma: 5 },
   },
   {
     id: "flat-white",
-    name: "Atelier Flat White",
+    name: "Flat White",
+    artisanTitle: "Double Shot with Silky Microfoam",
+    edition: "House Favourite",
     category: "Espresso",
     price: "£4.60",
-    image: "/images/menu/flat-white.jpg",
+    image: "/images/menu/flat-white.png",
     blurb:
-      "Our house blend beneath a mirror-smooth micro-foam, finished free-hand by a Q-graded barista.",
+      "A double ristretto shot topped with glossy textured whole milk and free-poured latte art, balancing natural espresso sweetness.",
     notes: ["Toffee", "Almond", "Clove"],
+    roastIntensity: 3,
+    servingTemp: "60°C Microfoam",
+    originTerroir: "Nyeri Karatina, Kenya · 1,880m",
+    pairing: "Almond Croissant",
+    cuppingScore: "88.5 Q+",
+    extractionRatio: "Double Ristretto Base",
+    flavorProfile: { sweetness: 4, acidity: 2, body: 4, aroma: 4 },
   },
   {
     id: "cold-brew",
-    name: "Barrel-Aged Cold Brew",
+    name: "Dark Elixir Cold Brew",
+    artisanTitle: "18-Hour Slow Steep · 60% Premium Blend",
+    edition: "Signature Reserve",
     category: "Slow Brew",
     price: "£5.80",
-    image: "/images/menu/cold-brew.jpg",
+    image: "/images/menu/coldbrew.png",
     blurb:
-      "Steeped eighteen hours, then rested a further six in oak. Poured over a single hand-cut clear cube.",
-    notes: ["Oak", "Blackcurrant", "Vanilla"],
+      "The house signature cold elixir. Coarsely ground single-origin beans steeped in chilled filtered water for eighteen hours. Exceptionally smooth, low acidity, served over clear crystal ice.",
+    notes: ["Dark cacao", "Toffee", "Candied citrus"],
+    roastIntensity: 4,
+    servingTemp: "Chilled at 3°C Over Crystal Ice",
+    originTerroir: "Huila Pitalito & Antigua · 1,740m",
+    pairing: "Salted Caramel Brownie",
+    cuppingScore: "92.0 Q+",
+    extractionRatio: "18h Chilled Steep · Nitrogen Lock",
+    flavorProfile: { sweetness: 4, acidity: 2, body: 5, aroma: 5 },
   },
   {
     id: "croissant",
     name: "Almond Croissant",
-    category: "Patisserie",
+    artisanTitle: "Twice-Baked French Butter Pastry",
+    edition: "Freshly Baked",
+    category: "Pastries",
     price: "£4.10",
-    image: "/images/menu/croissant.jpg",
+    image: "/images/menu/almond-croissant.png",
     blurb:
-      "Seventy-two hour laminated dough, filled with Valencia almond cream and dusted the moment it leaves the oven.",
+      "Twice-baked laminated French butter pastry filled with rich Valencia almond cream and finished with toasted flaked almonds.",
     notes: ["Butter", "Marzipan", "Sea salt"],
+    roastIntensity: 2,
+    servingTemp: "Served Warm",
+    originTerroir: "Valencia Almonds & Normandy Butter",
+    pairing: "Cortado or Flat White",
+    cuppingScore: "Artisan Grade A",
+    extractionRatio: "72h Laminated Dough",
+    flavorProfile: { sweetness: 4, acidity: 1, body: 4, aroma: 5 },
   },
   {
     id: "brownie",
-    name: "Salt Caramel Brownie",
-    category: "Patisserie",
+    name: "Salted Caramel Brownie",
+    artisanTitle: "Fudgy 70% Dark Chocolate & Sea Salt",
+    edition: "Freshly Baked",
+    category: "Pastries",
     price: "£5.20",
-    image: "/images/menu/brownie.jpg",
+    image: "/images/menu/salt-brownie.png",
     blurb:
-      "Single-estate 70% couverture, molten centre, warm salted caramel poured to order at the pass.",
-    notes: ["Burnt sugar", "Cacao", "Cream"],
+      "Baked with single-estate 70% dark chocolate, molten fudgy centre, and finished with warm homemade salted caramel and Maldon salt.",
+    notes: ["Dark cacao", "Burnt sugar", "Sea salt"],
+    roastIntensity: 5,
+    servingTemp: "Warm Molten Centre",
+    originTerroir: "Guayas Single-Estate 70% Cacao",
+    pairing: "Double Espresso",
+    cuppingScore: "Single Origin Cacao",
+    extractionRatio: "Warm Molten Centre",
+    flavorProfile: { sweetness: 5, acidity: 1, body: 5, aroma: 5 },
   },
 ];
 
@@ -107,7 +178,7 @@ export const MENU_CATEGORIES: Array<MenuCategory | "All"> = [
   "All",
   "Espresso",
   "Slow Brew",
-  "Patisserie",
+  "Pastries",
 ];
 
 export const CRAFT_STEPS = [
@@ -164,21 +235,21 @@ export const GALLERY = [
 export const TESTIMONIALS = [
   {
     quote:
-      "The most considered cup in the city. Aurélia treats a twelve-minute coffee break like a tasting menu — and somehow never makes you feel hurried.",
-    name: "Isabelle Moreau",
-    role: "Editor, Monocle",
+      "The most considered cup I have found here. A twelve-minute break gets treated like a tasting menu, and somehow nobody makes you feel hurried.",
+    name: "Thursday regular",
+    role: "Four years, same table",
   },
   {
     quote:
-      "I have been coming here every Thursday for four years. The room is beautiful, but it is the consistency that keeps the chairs full.",
-    name: "Dr. Adeola Bankole",
-    role: "Regular since 2021",
+      "The room is beautiful, but it is the consistency that keeps the chairs full. It tastes the same on a wet Tuesday as it does on a Saturday.",
+    name: "From the morning queue",
+    role: "Overheard at the bar",
   },
   {
     quote:
-      "Their barrel-aged cold brew is the single best thing I drank all year. Restrained, complex, and served with genuine warmth.",
-    name: "Tomas Lindqvist",
-    role: "Head Judge, Nordic Barista Cup",
+      "The barrel-aged cold brew is the best thing I have drunk all year. Restrained, complex, and served with real warmth.",
+    name: "A visiting roaster",
+    role: "Left a note on the counter",
   },
 ] as const;
 
@@ -194,18 +265,36 @@ export const STATS = [
    ────────────────────────────────────────────────────────────── */
 
 /**
- * The cinematic asset is an image sequence, not a video: 240 frames of
- * 1280×720 living in `public/Frames`. Scrubbing decoded frames on a canvas is
- * frame-accurate and sidesteps the seek latency of `video.currentTime`.
+ * The cinematic assets are 240-frame image sequences:
+ * - Sequence 1 (video1-frames): LUMÉ Dark Elixir can splash and 360° fluid orbit.
+ * - Sequence 2 (video2-frames): The Tabletop Cold Pour Ritual into crystal ice glass.
  */
-export const COFFEE_SEQUENCE = {
+export const SEQUENCE_VIDEO1 = {
+  id: "orbit",
+  name: "The Kinetic Orbit",
+  subtitle: "360° Zero-Gravity Can Splash",
   path: (n: number) =>
-    `/Frames/ezgif-frame-${String(n).padStart(3, "0")}.webp`,
+    `/video1-frames/ezgif-frame-${String(n).padStart(3, "0")}.jpg`,
   first: 1,
   last: 240,
-  width: 1280,
-  height: 720,
+  width: 1920,
+  height: 1080,
 } as const;
+
+export const SEQUENCE_VIDEO2 = {
+  id: "pour",
+  name: "The Cold Pour Ritual",
+  subtitle: "Tabletop Crystal Glass Pour",
+  path: (n: number) =>
+    `/video2-frames/ezgif-frame-${String(n).padStart(3, "0")}.jpg`,
+  first: 1,
+  last: 240,
+  width: 1920,
+  height: 1080,
+} as const;
+
+/** Active sequence alias for the hero section */
+export const COFFEE_SEQUENCE = SEQUENCE_VIDEO1;
 
 export type HeroBeat = {
   id: string;
@@ -218,36 +307,85 @@ export type HeroBeat = {
   window: [number, number, number, number];
 };
 
-/**
- * Copy beats timed against the footage. Frame landmarks, measured from the
- * sequence itself: cup leaves the table ~f45, tilt begins ~f85, the pour
- * starts ~f110, the camera drops under the stream ~f165.
- */
 export const HERO_BEATS: HeroBeat[] = [
   {
     id: "lift",
-    eyebrow: "01 — The Lift",
-    title: "Nothing here is",
-    titleAccent: "hurried",
+    eyebrow: "01 — The Submersion",
+    title: "Cold-crafted to",
+    titleAccent: "perfection",
     titleTail: ".",
-    body: "Eighteen grams in, weighed to the tenth of a gram, and not a step skipped between.",
-    window: [0.25, 0.31, 0.4, 0.45],
+    body: "Eighteen hours of slow chilled water steep, drawing deep cocoa and toffee notes without bitterness.",
+    window: [0.24, 0.30, 0.40, 0.46],
   },
   {
     id: "pour",
-    eyebrow: "02 — The Pour",
-    title: "Then it",
-    titleAccent: "tips",
+    eyebrow: "02 — The Orbit",
+    title: "Single-origin",
+    titleAccent: "balance",
     titleTail: ".",
-    body: "Twenty-two out, twenty-six seconds, and not a moment more.",
-    window: [0.52, 0.58, 0.66, 0.71],
+    body: "High-altitude Colombian beans roasted in micro-lots, locked inside nitrogen-charged cans for optimal freshness.",
+    window: [0.52, 0.58, 0.68, 0.74],
   },
   {
     id: "yours",
-    eyebrow: "03 — Yours",
-    title: "Poured with",
-    titleAccent: "intent",
+    eyebrow: "03 — The Dark Elixir",
+    title: "Crafted for the",
+    titleAccent: "discerning",
     titleTail: ".",
-    window: [0.86, 0.92, 1.01, 1.02],
+    window: [0.85, 0.91, 1.01, 1.02],
+  },
+];
+
+export type RitualBeat = {
+  id: string;
+  step: string;
+  eyebrow: string;
+  title: string;
+  titleAccent: string;
+  body: string;
+  specs: { label: string; value: string }[];
+  /** Progress window [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd] */
+  window: [number, number, number, number];
+};
+
+export const RITUAL_BEATS: RitualBeat[] = [
+  {
+    id: "crystal",
+    step: "01",
+    eyebrow: "The Chilled Stage",
+    title: "Crystal Coupe",
+    titleAccent: "& Clear Ice",
+    body: "Directionally frozen, hand-carved ice cubes nestled in a lead-free crystal goblet to lock in chill without premature dilution.",
+    specs: [
+      { label: "Glass Temp", value: "-4°C" },
+      { label: "Ice Purity", value: "99.8%" },
+    ],
+    window: [0.08, 0.16, 0.30, 0.38],
+  },
+  {
+    id: "cascade",
+    step: "02",
+    eyebrow: "The Extraction Apex",
+    title: "The Dark Elixir",
+    titleAccent: "Cascade",
+    body: "Extracted via 18-hour cold immersion from Huila Colombian beans. Notes of dark cacao, toffee, and candied citrus peel emerge as it splashes over ice.",
+    specs: [
+      { label: "Pour Rate", value: "12 ml/s" },
+      { label: "Chill Temp", value: "3.2°C" },
+    ],
+    window: [0.42, 0.50, 0.64, 0.72],
+  },
+  {
+    id: "finish",
+    step: "03",
+    eyebrow: "The Signature Serve",
+    title: "Velvety,",
+    titleAccent: "Silken Crema",
+    body: "Micro-filtered for crystalline clarity and an exceptionally smooth mouthfeel. Paired with single-estate 70% Venezuelan chocolate.",
+    specs: [
+      { label: "Serving Size", value: "250 ml" },
+      { label: "Pairing", value: "70% Single-Estate Cacao" },
+    ],
+    window: [0.74, 0.82, 0.94, 0.99],
   },
 ];

@@ -1,6 +1,7 @@
 import CoffeeScrollHero from "@/components/sections/CoffeeScrollHero";
 import Marquee from "@/components/sections/Marquee";
 import Story from "@/components/sections/Story";
+import PourRitualSection from "@/components/sections/PourRitualSection";
 import Menu from "@/components/sections/Menu";
 import Craft from "@/components/sections/Craft";
 import Origins from "@/components/sections/Origins";
@@ -18,6 +19,7 @@ export default function Home() {
       <CoffeeScrollHero />
       <Marquee />
       <Story />
+      <PourRitualSection />
       <Menu />
       <Craft />
       <Origins />
