@@ -486,10 +486,20 @@ export default function CoffeeScrollHero() {
             /* Starts transparent: on a slow link there is nothing to show for
                a while, and an empty canvas over the section gradient is less
                jarring than a black rectangle. Faded in by the effect below.
-               objectPosition is centered (50% 50%) so the subject is perfectly
-               centralized horizontally on mobile and widescreen. */
+
+               Framing: the element is made TALLER than the stage and then
+               scaled back down, which pulls the camera away from the can
+               without introducing letterbox bars. Plain `object-cover` on a
+               wider-than-16:9 viewport had to scale the frame up to fill the
+               height, cropping into the subject — that is what made it feel
+               oversized and pressed against the glass. Oversizing the box
+               first means the same cover crop now lands further out, so the
+               whole composition (can, crown of milk, and the empty backdrop
+               that gives it air) stays in shot. `object-contain` would also
+               pull back but leaves hard bars on all four edges, which reads
+               as a broken video embed. */
             style={{ opacity: 0, objectPosition: "50% 50%" }}
-            className="h-full w-full object-cover object-center max-sm:object-center"
+            className="absolute left-1/2 top-1/2 h-full w-[152%] -translate-x-1/2 -translate-y-1/2 object-contain object-center max-sm:h-full max-sm:w-full max-sm:object-cover"
           />
         </div>
 
@@ -632,8 +642,10 @@ export default function CoffeeScrollHero() {
               className="h-full origin-left scale-x-0 bg-gradient-to-r from-primary-deep via-primary to-primary-soft"
             />
           </div>
+          {/* The sequence is a chilled canned iced coffee — anything about
+              warming reads as the wrong product. */}
           <p className="font-sans text-[0.52rem] uppercase tracking-[0.32em] text-muted">
-            Warming the cup
+            Pouring over ice
           </p>
         </div>
       </div>

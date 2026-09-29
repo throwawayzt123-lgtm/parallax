@@ -8,6 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { gsap, useGSAP, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { useLazyMotion } from "@/lib/useLazyMotion";
 import Eyebrow from "@/components/ui/Eyebrow";
 import GoldButton from "@/components/ui/GoldButton";
 import { SEQUENCE_VIDEO2, RITUAL_BEATS } from "@/lib/site";
@@ -231,9 +232,14 @@ export default function PourRitualSection() {
     { dependencies: [firstFrameReady] },
   );
 
-  /* ScrollTrigger scrub timeline */
+  /* ScrollTrigger scrub timeline — deferred until the section is near.
+     Building it at mount put a second scrubber's rig in the same hydration
+     block as the hero's, which is where the page's blocking time was going. */
+  const rigReady = useLazyMotion(root);
+
   useGSAP(
     () => {
+      if (!rigReady) return;
       if (reduced || prefersReducedMotion()) return;
 
       const mm = gsap.matchMedia();
@@ -320,7 +326,7 @@ export default function PourRitualSection() {
 
       return () => mm.revert();
     },
-    { scope: root, dependencies: [reduced, paint] },
+    { scope: root, dependencies: [reduced, paint, rigReady] },
   );
 
   /* Fallback static frame for reduced motion visitors */
