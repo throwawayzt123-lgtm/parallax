@@ -238,6 +238,33 @@
   .blur-\[140px\] {
     filter: blur(45px);
   }
+
+  /* Hero canvas mobile zoom-out:
+     Pulls camera back to reveal the full coffee splash and floating beans,
+     preventing the extreme 3x portrait close-up while smoothly feathering the edges. */
+  .hero-canvas-mobile {
+    position: relative !important;
+    inset: auto !important;
+    width: 158vw !important;
+    max-width: none !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+    transform: translateY(-4vh) !important;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

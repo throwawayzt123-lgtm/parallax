@@ -473,30 +473,18 @@ export default function CoffeeScrollHero() {
     >
       <div
         ref={stage}
-        className="grain relative h-[100lvh] w-full overflow-hidden bg-ink"
+        className="grain relative h-[100lvh] w-full overflow-hidden bg-ink max-sm:bg-gradient-to-b max-sm:from-[#E8C2A6] max-sm:via-[#DEBFA1] max-sm:to-[#1C130D]"
       >
         {/* ── The sequence ────────────────────────────────────────────── */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
           <canvas
             ref={canvas}
             width={COFFEE_SEQUENCE.width}
             height={COFFEE_SEQUENCE.height}
             aria-label="A cup of coffee lifting from a café table and pouring toward the viewer"
             role="img"
-            /* Starts transparent: on a slow link there is nothing to show for
-               a while, and an empty canvas over the section gradient is less
-               jarring than a black rectangle. Faded in by the effect below.
-
-               Framing: `object-cover` so the frame always fills the stage
-               edge to edge — no letterbox bands. An earlier attempt used
-               `object-contain` to pull the camera back off the can, but
-               contain fits the whole 16:9 frame inside the box, so on a
-               viewport that is not exactly 16:9 the image ends up shorter
-               than the stage and leaves dark bands above and below. Cover
-               crops instead of shrinking, which is what a full-bleed
-               background needs. */
             style={{ opacity: 0, objectPosition: "50% 50%" }}
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="hero-canvas-mobile absolute inset-0 h-full w-full object-cover object-center"
           />
         </div>
 
@@ -509,7 +497,7 @@ export default function CoffeeScrollHero() {
             further across. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-ink/95 via-ink/55 to-transparent max-sm:h-24 max-sm:from-ink/70 max-sm:via-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-ink/95 via-ink/55 to-transparent max-sm:h-20 max-sm:from-ink/60 max-sm:via-transparent"
         />
         {/* Desktop reads left-to-right into the negative space. */}
         <div
@@ -526,7 +514,7 @@ export default function CoffeeScrollHero() {
         <div
           data-scrim-beats
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[44%] bg-gradient-to-t from-ink via-ink/80 to-transparent max-sm:block"
+          className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[34%] bg-gradient-to-t from-ink via-ink/85 to-transparent max-sm:block"
         />
         <div
           aria-hidden
