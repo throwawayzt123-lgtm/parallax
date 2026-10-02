@@ -543,7 +543,7 @@ export default function CoffeeScrollHero() {
               className="pointer-events-auto max-w-[54ch] max-sm:max-w-[340px] max-sm:mx-auto max-sm:text-center"
             >
               <div data-intro-eyebrow className="max-sm:justify-center">
-                <Eyebrow reveal={false} className="max-sm:justify-center max-sm:text-[0.58rem]">
+                <Eyebrow reveal={false} className="max-sm:justify-center">
                   {BRAND.tagline} · New York, USA
                 </Eyebrow>
               </div>
@@ -553,10 +553,10 @@ export default function CoffeeScrollHero() {
                 /* Sized against height as well as width: on a wide-but-short
                    window (1913x833) a pure vw scale produced a four-line
                    headline that crowded the header and the origin line. */
-                className="mt-8 max-w-[16ch] font-display text-[clamp(2.6rem,min(7vw,10.5vh),7.5rem)] font-medium leading-[0.96] tracking-[-0.02em] text-cream drop-shadow-[0_4px_26px_rgb(8_5_3/0.95)] max-sm:mx-auto max-sm:mt-2 max-sm:text-[1.65rem] max-sm:leading-[1.12] max-sm:max-w-[13ch]"
+                className="mt-8 max-w-[16ch] font-display text-[clamp(2.6rem,min(7vw,10.5vh),7.5rem)] font-medium leading-[0.96] tracking-[-0.02em] text-cream drop-shadow-[0_4px_26px_rgb(8_5_3/0.95)] max-sm:mx-auto max-sm:mt-2.5 max-sm:text-[1.75rem] max-sm:leading-[1.18] max-sm:max-w-[320px]"
               >
-                A slow ritual, <em className="text-gilded italic">poured</em> with
-                intent.
+                A slow ritual,<br className="sm:hidden" />{" "}
+                <em className="text-gilded italic">poured</em> with intent.
               </h1>
 
               <p
@@ -569,7 +569,7 @@ export default function CoffeeScrollHero() {
 
               <div className="mt-10 flex items-center gap-4 max-sm:mt-3 max-sm:justify-center max-sm:gap-2">
                 <span data-intro-cta>
-                  <GoldButton href="#menu" className="max-sm:text-[0.68rem] max-sm:py-1.5 max-sm:px-3.5">
+                  <GoldButton href="#menu" className="max-sm:text-[0.72rem] max-sm:py-2 max-sm:px-5">
                     Explore Menu
                   </GoldButton>
                 </span>
